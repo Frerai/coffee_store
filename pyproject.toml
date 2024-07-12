@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "coffee-store"
+version = "0.1.0"
+description = "An API for a made up coffee store as part of a hobby project."
+authors = ["Feraidoon Hamidi <feraidoon321@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
