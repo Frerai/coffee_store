@@ -2,6 +2,7 @@ import logging
 
 from fastapi import APIRouter
 from fastapi import HTTPException
+from fastapi import status
 
 from app.api.crud_operations.drink_operations import get_drinks
 from app.api.crud_operations.order_operations import create_order
@@ -33,6 +34,7 @@ def fetch_all_drinks(skip: int = 0, limit: int = 10):
         A list of drinks.
     """
     logger.info(f"Fetching drinks: skip={skip}, limit={limit}")
+
     return get_drinks(skip=skip, limit=limit)
 
 
@@ -51,6 +53,7 @@ def fetch_all_toppings(skip: int = 0, limit: int = 10):
         A list of toppings.
     """
     logger.info(f"Fetching toppings: skip={skip}, limit={limit}")
+
     return get_toppings(skip=skip, limit=limit)
 
 
@@ -74,6 +77,10 @@ def place_order(order: OrderCreate):
     """
     logger.info("Creating new order")
 
+    # First, we validate whehter drink IDs have been entered in list of drink_ids.
+    if not order.drink_ids or any(not drink_list for drink_list in order.drink_ids):
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Drink IDs cannot be empty.")
+
     drinks = []
     toppings = []
 
@@ -82,7 +89,7 @@ def place_order(order: OrderCreate):
         for drink_id in drink_list:
             drink = get_drink(drink_id)
             if not drink:
-                raise HTTPException(status_code=404, detail=f"Drink with id {drink_id} not found")
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Drink with id {drink_id} not found")
             drink_sublist.append(drink)
         drinks.append(drink_sublist)
 
@@ -91,7 +98,8 @@ def place_order(order: OrderCreate):
         for topping_id in topping_list:
             topping = get_topping(topping_id)
             if not topping:
-                raise HTTPException(status_code=404, detail=f"Topping with id {topping_id} not found")
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                    detail=f"Topping with id {topping_id} not found")
             topping_sublist.append(topping)
         toppings.append(topping_sublist)
 

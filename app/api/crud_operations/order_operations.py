@@ -26,6 +26,7 @@ def create_order(
                       discounted_amount=discounted_amount)
     ORDERS.append(new_order)
     NEXT_ORDER_ID += 1
+
     return new_order
 
 
@@ -42,4 +43,5 @@ def get_orders(skip: int = 0, limit: int = 10) -> list[Order]:
 
         list[Order]: A list of orders.
     """
+
     return ORDERS[skip:skip + limit]

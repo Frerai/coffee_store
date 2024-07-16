@@ -1,5 +1,7 @@
 import logging
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
+from fastapi import HTTPException
+from fastapi import status
 
 from app.api.crud_operations.drink_operations import create_drink
 from app.api.crud_operations.drink_operations import delete_drink
@@ -45,6 +47,11 @@ def create_drink_route(drink: DrinkCreate):
         The created drink with its details.
     """
     logger.info(f"Creating drink: {drink.name}")
+    if not drink.name:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Drink name cannot be empty.")
+    if drink.price <= 0:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Price of drink must be greater than zero.")
+
     return create_drink(drink)
 
 
@@ -83,7 +90,8 @@ def update_drink_route(drink_id: int, drink: DrinkUpdate):
     logger.info(f"Updating drink: {drink_id}")
     updated_drink = update_drink(drink_id, drink)
     if not updated_drink:
-        raise HTTPException(status_code=404, detail="Drink not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Drink not found")
+
     return updated_drink
 
 
@@ -103,7 +111,8 @@ def delete_drink_route(drink_id: int):
     logger.info(f"Deleting drink with id: {drink_id}")
     deleted_drink = delete_drink(drink_id)
     if not deleted_drink:
-        raise HTTPException(status_code=404, detail="Drink not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Drink not found")
+
     return deleted_drink
 
 
@@ -129,6 +138,11 @@ def create_topping_route(topping: ToppingCreate):
         The created topping with its details.
     """
     logger.info(f"Creating new topping: {topping.name}")
+    if not topping.name:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Topping name cannot be empty.")
+    if topping.price <=0:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Price of topping must be greater than zero.")
+
     return create_topping(name=topping.name, price=topping.price)
 
 
@@ -147,6 +161,7 @@ def read_toppings_route(skip: int = 0, limit: int = 10):
         A list of toppings.
     """
     logger.info(f"Fetching toppings: skip={skip}, limit={limit}")
+
     return get_toppings(skip=skip, limit=limit)
 
 
@@ -168,6 +183,7 @@ def update_topping_route(topping_id: int, topping: ToppingUpdate):
     updated_topping = update_topping(topping_id, name=topping.name, price=topping.price)
     if not updated_topping:
         raise HTTPException(status_code=404, detail="Topping not found")
+
     return updated_topping
 
 
@@ -188,7 +204,7 @@ def delete_topping_route(topping_id: int):
     deleted_topping = delete_topping(topping_id=topping_id)
     if deleted_topping is None:
         logger.error(f"Topping with id {topping_id} not found")
-        raise HTTPException(status_code=404, detail="Topping not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Topping not found")
     return deleted_topping
 
 
