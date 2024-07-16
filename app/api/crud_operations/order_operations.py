@@ -11,12 +11,14 @@ def create_order(
     Create a new order with the provided details.
 
     Args:
+
         drink_ids (list[list[int]]): The IDs of the drinks in the order.
         topping_ids (list[list[int]]): The IDs of the toppings in the order.
         total_amount (float): The total amount of the order.
         discounted_amount (float): The discounted amount of the order.
 
     Returns:
+
         Order: The newly created order.
     """
     global NEXT_ORDER_ID
@@ -32,10 +34,12 @@ def get_orders(skip: int = 0, limit: int = 10) -> list[Order]:
     Get a list of orders, with pagination.
 
     Args:
+
         skip (int): The number of orders to skip. Default is 0.
         limit (int): The maximum number of orders to return. Default is 10.
 
     Returns:
+
         list[Order]: A list of orders.
     """
     return ORDERS[skip:skip + limit]

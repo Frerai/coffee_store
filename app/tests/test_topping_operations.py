@@ -1,11 +1,11 @@
 import pytest
+
 from app.api.crud_operations.topping_operations import create_topping
 from app.api.crud_operations.topping_operations import get_topping
 from app.api.crud_operations.topping_operations import get_toppings
 from app.api.crud_operations.topping_operations import delete_topping
 from app.api.crud_operations.topping_operations import update_topping
 from app.api.crud_operations.topping_operations import initialize_default_toppings_on_startup
-from app.models.toppings import Topping
 
 
 @pytest.fixture
@@ -13,7 +13,7 @@ def setup_toppings():
     initialize_default_toppings_on_startup()
 
 
-def test_create_topping():
+def test_create_topping() -> None:
     """
     Test creating a new topping.
 
@@ -27,7 +27,7 @@ def test_create_topping():
     assert topping.price == 1.5
 
 
-def test_get_topping(setup_toppings):
+def test_get_topping(setup_toppings) -> None:
     """
     Test retrieving a topping by its ID.
 
@@ -41,7 +41,7 @@ def test_get_topping(setup_toppings):
     assert topping.price == 1.5
 
 
-def test_get_toppings(setup_toppings):
+def test_get_toppings(setup_toppings) -> None:
     """
     Test retrieving a list of toppings with pagination.
 
@@ -53,7 +53,7 @@ def test_get_toppings(setup_toppings):
     assert len(toppings) == 1
 
 
-def test_delete_topping(setup_toppings):
+def test_delete_topping(setup_toppings) -> None:
     """
     Test deleting a topping by its ID.
 
@@ -65,7 +65,7 @@ def test_delete_topping(setup_toppings):
     assert deleted_topping.name == "Whipped Cream"
 
 
-def test_update_topping(setup_toppings):
+def test_update_topping(setup_toppings) -> None:
     """
     Test updating an existing topping.
 

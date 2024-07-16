@@ -1,15 +1,15 @@
 import pytest
+
 from app.api.crud_operations.order_operations import create_order
 from app.api.crud_operations.order_operations import get_orders
-from app.models.orders import Order
 
 
 @pytest.fixture
-def setup_orders():
+def setup_orders() -> None:
     create_order(drink_ids=[[1]], topping_ids=[[1]], total_amount=5.0, discounted_amount=5.0)
 
 
-def test_create_order():
+def test_create_order() -> None:
     """
     Test creating a new order.
 
@@ -23,7 +23,7 @@ def test_create_order():
     assert order.discounted_amount == 8
 
 
-def test_get_orders(setup_orders):
+def test_get_orders(setup_orders) -> None:
     """
     Test retrieving a list of orders with pagination.
 

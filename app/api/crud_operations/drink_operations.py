@@ -10,9 +10,11 @@ def create_drink(drink: DrinkCreate) -> Drink:
     Create a new drink with the provided details.
 
     Args:
+
         drink (DrinkCreate): The details of the drink to create.
 
     Returns:
+
         Drink: The newly created drink.
     """
     drink_id = len(DRINKS) + 1
@@ -26,10 +28,12 @@ def update_drink(drink_id: int, drink: DrinkUpdate) -> Drink | None:
     Update an existing drink's details.
 
     Args:
+
         drink_id (int): The ID of the drink to update.
         drink (DrinkUpdate): The new details of the drink.
 
     Returns:
+
         Drink | None: The updated drink if found, otherwise None.
     """
     for existing_drink in DRINKS:
@@ -46,9 +50,11 @@ def get_drink(drink_id: int) -> Drink | None:
     Get a drink by its ID.
 
     Args:
+
         drink_id (int): The ID of the drink to retrieve.
 
     Returns:
+
         Drink | None: The drink if found, otherwise None.
     """
     return next((d for d in DRINKS if d.id == drink_id), None)
@@ -59,10 +65,12 @@ def get_drinks(skip: int = 0, limit: int = 10) -> list[Drink]:
     Get a list of drinks, with pagination.
 
     Args:
+
         skip (int): The number of drinks to skip. Default is 0.
         limit (int): The maximum number of drinks to return. Default is 10.
 
     Returns:
+
         list[Drink]: A list of drinks.
     """
     return DRINKS[skip:skip + limit]
@@ -73,9 +81,11 @@ def delete_drink(drink_id: int) -> Drink | None:
     Delete a drink by its ID.
 
     Args:
+
         drink_id (int): The ID of the drink to delete.
 
     Returns:
+
         Drink | None: The deleted drink if found, otherwise None.
     """
     drink = get_drink(drink_id)

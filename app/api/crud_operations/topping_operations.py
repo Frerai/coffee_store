@@ -8,10 +8,12 @@ def create_topping(name: str, price: float) -> Topping:
     Create a new topping with the provided details.
 
     Args:
+
         name (str): The name of the topping.
         price (float): The price of the topping.
 
     Returns:
+
         Topping: The newly created topping.
     """
     topping_id = len(TOPPINGS) + 1
@@ -25,9 +27,11 @@ def get_topping(topping_id: int) -> Topping | None:
     Get a topping by its ID.
 
     Args:
+
         topping_id (int): The ID of the topping to retrieve.
 
     Returns:
+
         Topping | None: The topping if found, otherwise None.
     """
     return next((t for t in TOPPINGS if t.id == topping_id), None)
@@ -38,10 +42,12 @@ def get_toppings(skip: int = 0, limit: int = 10) -> list[Topping]:
     Get a list of toppings, with pagination.
 
     Args:
+
         skip (int): The number of toppings to skip. Default is 0.
         limit (int): The maximum number of toppings to return. Default is 10.
 
     Returns:
+
         list[Topping]: A list of toppings.
     """
     return TOPPINGS[skip:skip + limit]
@@ -52,9 +58,11 @@ def delete_topping(topping_id: int) -> Topping | None:
     Delete a topping by its ID.
 
     Args:
+
         topping_id (int): The ID of the topping to delete.
 
     Returns:
+
         Topping | None: The deleted topping if found, otherwise None.
     """
     topping = next((t for t in TOPPINGS if t.id == topping_id), None)
@@ -68,11 +76,13 @@ def update_topping(topping_id: int, name: str = None, price: float = None) -> To
     Update an existing topping's details.
 
     Args:
+
         topping_id (int): The ID of the topping to update.
         name (str, optional): The new name of the topping. Defaults to None.
         price (float, optional): The new price of the topping. Defaults to None.
 
     Returns:
+
         Topping | None: The updated topping if found, otherwise None.
     """
     for existing_topping in TOPPINGS:

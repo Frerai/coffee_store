@@ -15,14 +15,14 @@ def setup_drinks():
     initialize_default_drinks_on_startup()
 
 
-def test_create_drink():
+def test_create_drink() -> None:
     """
     Test creating a new drink.
 
     Example:
-        >>> drink = DrinkCreate(name="Espresso", price=3, topping_ids=[])
+        >>> drink = DrinkCreate(name="Tuica", price=3, topping_ids=[])
         >>> created_drink = create_drink(drink)
-        >>> assert created_drink.name == "Espresso"
+        >>> assert created_drink.name == "Tuica"
         >>> assert created_drink.price == 3
     """
     drink = DrinkCreate(name="Espresso", price=3, topping_ids=[])
@@ -31,14 +31,14 @@ def test_create_drink():
     assert created_drink.price == 3
 
 
-def test_update_drink(setup_drinks):
+def test_update_drink(setup_drinks) -> None:
     """
     Test updating an existing drink.
 
     Example:
-        >>> drink_update = DrinkUpdate(name="Green Tea", price=4)
+        >>> drink_update = DrinkUpdate(name="Raki", price=4)
         >>> updated_drink = update_drink(4, drink_update)
-        >>> assert updated_drink.name == "Green Tea"
+        >>> assert updated_drink.name == "Raki"
         >>> assert updated_drink.price == 4
     """
     drink_update = DrinkUpdate(name="Green Tea", price=4)
@@ -47,21 +47,21 @@ def test_update_drink(setup_drinks):
     assert updated_drink.price == 4
 
 
-def test_get_drink(setup_drinks):
+def test_get_drink(setup_drinks) -> None:
     """
     Test retrieving a drink by its ID.
 
     Example:
         >>> drink = get_drink(1)
-        >>> assert drink.name == "Espresso"
-        >>> assert drink.price == 4
+        >>> assert drink.name == "Goats Milk"
+        >>> assert drink.price == 9000
     """
     drink = get_drink(1)
     assert drink.name == "Espresso"
     assert drink.price == 3
 
 
-def test_get_drinks(setup_drinks):
+def test_get_drinks(setup_drinks) -> None:
     """
     Test retrieving a list of drinks with pagination.
 
@@ -73,13 +73,13 @@ def test_get_drinks(setup_drinks):
     assert len(drinks) == 2
 
 
-def test_delete_drink(setup_drinks):
+def test_delete_drink(setup_drinks) -> None:
     """
     Test deleting a drink by its ID.
 
     Example:
-        >>> deleted_drink = delete_drink(4)
-        >>> assert deleted_drink.name == "Green Tea"
+        >>> deleted_drink = delete_drink(2)
+        >>> assert deleted_drink.name == "Custard"
     """
     deleted_drink = delete_drink(4)
     assert deleted_drink.name == "Green Tea"
