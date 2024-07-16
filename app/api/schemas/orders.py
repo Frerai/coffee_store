@@ -6,7 +6,7 @@ class OrderBase(BaseModel):
     drink_ids: list[list[int]] = Field(
         ...,
         description="A list of lists containing the IDs of the drinks in the order. Each inner list represents a set of"
-                    " drinks to be included together."
+                    "drinks to be included together."
     )
     topping_ids: list[list[int]] = Field(
         ...,
@@ -29,7 +29,7 @@ class Order(OrderBase):
         description="The final amount for the order after applying any discounts."
     )
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
 
