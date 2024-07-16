@@ -1,12 +1,5 @@
-import pytest
-
 from app.api.crud_operations.order_operations import create_order
 from app.api.crud_operations.order_operations import get_orders
-
-
-@pytest.fixture
-def setup_orders() -> None:
-    create_order(drink_ids=[[1]], topping_ids=[[1]], total_amount=5.0, discounted_amount=5.0)
 
 
 def test_create_order() -> None:

@@ -5,12 +5,6 @@ from app.api.crud_operations.topping_operations import get_topping
 from app.api.crud_operations.topping_operations import get_toppings
 from app.api.crud_operations.topping_operations import delete_topping
 from app.api.crud_operations.topping_operations import update_topping
-from app.api.crud_operations.topping_operations import initialize_default_toppings_on_startup
-
-
-@pytest.fixture
-def setup_toppings():
-    initialize_default_toppings_on_startup()
 
 
 def test_create_topping() -> None:
@@ -37,8 +31,8 @@ def test_get_topping(setup_toppings) -> None:
         >>> assert topping.price == 3
     """
     topping = get_topping(1)
-    assert topping.name == "Whipped Cream"
-    assert topping.price == 1.5
+    assert topping.name == "Milk"
+    assert topping.price == 2
 
 
 def test_get_toppings(setup_toppings) -> None:
@@ -62,7 +56,7 @@ def test_delete_topping(setup_toppings) -> None:
         >>> assert deleted_topping.name == "Lemon"
     """
     deleted_topping = delete_topping(1)
-    assert deleted_topping.name == "Whipped Cream"
+    assert deleted_topping.name == "Milk"
 
 
 def test_update_topping(setup_toppings) -> None:

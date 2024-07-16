@@ -4,15 +4,9 @@ from app.api.crud_operations.drink_operations import create_drink
 from app.api.crud_operations.drink_operations import delete_drink
 from app.api.crud_operations.drink_operations import get_drink
 from app.api.crud_operations.drink_operations import get_drinks
-from app.api.crud_operations.drink_operations import initialize_default_drinks_on_startup
 from app.api.crud_operations.drink_operations import update_drink
 from app.api.schemas.drinks import DrinkCreate
 from app.api.schemas.drinks import DrinkUpdate
-
-
-@pytest.fixture
-def setup_drinks():
-    initialize_default_drinks_on_startup()
 
 
 def test_create_drink() -> None:
@@ -57,8 +51,8 @@ def test_get_drink(setup_drinks) -> None:
         >>> assert drink.price == 9000
     """
     drink = get_drink(1)
-    assert drink.name == "Espresso"
-    assert drink.price == 3
+    assert drink.name == "Black Coffee"
+    assert drink.price == 4
 
 
 def test_get_drinks(setup_drinks) -> None:
