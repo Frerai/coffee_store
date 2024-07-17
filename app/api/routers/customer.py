@@ -84,6 +84,7 @@ def place_order(order: OrderCreate):
     drinks = []
     toppings = []
 
+    # Find drinks ordered by the customer.
     for drink_list in order.drink_ids:
         drink_sublist = []
         for drink_id in drink_list:
@@ -93,6 +94,7 @@ def place_order(order: OrderCreate):
             drink_sublist.append(drink)
         drinks.append(drink_sublist)
 
+    # Find toppings ordered by the customer.
     for topping_list in order.topping_ids:
         topping_sublist = []
         for topping_id in topping_list:
@@ -103,11 +105,13 @@ def place_order(order: OrderCreate):
             topping_sublist.append(topping)
         toppings.append(topping_sublist)
 
+    # Calculating toatal sum of customers order, with drinks and toppings.
     total_amount = sum(
         sum(drink.price for drink in drink_list) +
         sum(topping.price for topping in topping_list)
         for drink_list, topping_list in zip(drinks, toppings))
 
+    # Calculating which kind of discount the customer is eligible for. Lowest discount will be applied.
     discount_1 = total_amount * 0.75 if total_amount > 12 else total_amount
     discount_2 = total_amount - min(
         drink.price + sum(topping.price for topping in topping_list)
@@ -116,12 +120,15 @@ def place_order(order: OrderCreate):
 
     discounted_amount = min(discount_1, discount_2)
 
+    # Create an order which will display what drinks, topping, discount amount and total amount
+    # the order has come to.
     new_order = create_order(
         drink_ids=order.drink_ids,
         topping_ids=order.topping_ids,
         total_amount=total_amount,
         discounted_amount=discounted_amount
     )
+
     return new_order
 
 
@@ -140,4 +147,5 @@ def fetch_all_orders(skip: int = 0, limit: int = 10):
         A list of orders.
     """
     logger.info(f"Fetching orders: skip={skip}, limit={limit}")
+
     return get_orders(skip=skip, limit=limit)

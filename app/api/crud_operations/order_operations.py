@@ -1,6 +1,8 @@
 from app.models.orders import Order
 
+# In-memory storage for orders
 ORDERS: list[Order] = []
+# Initialize the next order ID.
 NEXT_ORDER_ID = 1
 
 
@@ -21,9 +23,13 @@ def create_order(
 
         Order: The newly created order.
     """
+    # Python keyword - this will enable the variable, which exists outside this function, to be
+    # modified from inside this function.
     global NEXT_ORDER_ID
+    # Create an Order object.
     new_order = Order(id=NEXT_ORDER_ID, drink_ids=drink_ids, topping_ids=topping_ids, total_amount=total_amount,
                       discounted_amount=discounted_amount)
+    # Add the Order to the in-memory storage.
     ORDERS.append(new_order)
     NEXT_ORDER_ID += 1
 
@@ -43,5 +49,5 @@ def get_orders(skip: int = 0, limit: int = 10) -> list[Order]:
 
         list[Order]: A list of orders.
     """
-
+    # Return a slice of the list of orders based on skip and limit.
     return ORDERS[skip:skip + limit]

@@ -1,5 +1,6 @@
 from app.models.toppings import Topping
 
+# Create an in-memory storage for the drinks.
 TOPPINGS: list[Topping] = []
 
 
@@ -16,9 +17,13 @@ def create_topping(name: str, price: float) -> Topping:
 
         Topping: The newly created topping.
     """
+    # Generate a new ID for the topping.
     topping_id = len(TOPPINGS) + 1
+    # Create a new topping object.
     new_topping = Topping(id=topping_id, name=name, price=price)
+    # Add the new topping to the in-memory storage.
     TOPPINGS.append(new_topping)
+
     return new_topping
 
 
@@ -34,6 +39,7 @@ def get_topping(topping_id: int) -> Topping | None:
 
         Topping | None: The topping if found, otherwise None.
     """
+    # Searching for the toppings id - find and return the topping with the given ID.
     return next((t for t in TOPPINGS if t.id == topping_id), None)
 
 
@@ -50,6 +56,7 @@ def get_toppings(skip: int = 0, limit: int = 10) -> list[Topping]:
 
         list[Topping]: A list of toppings.
     """
+    # Return a slice of the list of toppings based on skip and limit.
     return TOPPINGS[skip:skip + limit]
 
 
@@ -65,7 +72,9 @@ def delete_topping(topping_id: int) -> Topping | None:
 
         Topping | None: The deleted topping if found, otherwise None.
     """
+    # Find the topping with the given ID.
     topping = next((t for t in TOPPINGS if t.id == topping_id), None)
+    # If found, remove the topping from the in-memory storage.
     if topping:
         TOPPINGS.remove(topping)
     return topping
@@ -85,11 +94,15 @@ def update_topping(topping_id: int, name: str = None, price: float = None) -> To
 
         Topping | None: The updated topping if found, otherwise None.
     """
+    # Find the topping with the given ID and update its details.
     for existing_topping in TOPPINGS:
+        # If the topping ID is a match.
         if existing_topping.id == topping_id:
             if name is not None:
+                # Update the toppings name.
                 existing_topping.name = name
             if price is not None:
+                # Update the toppings price.
                 existing_topping.price = price
             return existing_topping
     return None
