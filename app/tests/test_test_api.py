@@ -67,3 +67,7 @@ def test_create_order(setup_fastapi_test_app: TestClient, order_data: dict, expe
     """
     response = setup_fastapi_test_app.post("/customer/order-drinks/", json=order_data)
     assert response.status_code == expected_status_code
+    if expected_status_code == 200:
+        order = response.json()
+        assert "total_amount" in order
+        assert "discounted_amount" in order
